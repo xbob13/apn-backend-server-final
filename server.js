@@ -23,7 +23,7 @@ app.post('/run/youtube', (req, res) => {
 });
 
 app.post('/run/crypto', (req, res) => {
-  exec('echo Crypto bot triggered!', (err, stdout, stderr) => {
+  exec('node cryptoBot.js', (err, stdout, stderr) => {
     if (err) return res.status(500).send(stderr);
     res.send(stdout);
   });
