@@ -1,15 +1,16 @@
+const express = require('express');
+const cors = require('cors');
+const { exec } = require('child_process');
+const app = express(); // ✅ Moved this up
+const PORT = process.env.PORT || 3001;
+
+// ✅ CORS FIX (must go after `app` is declared)
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
-
-const express = require('express');
-const cors = require('cors');
-const { exec } = require('child_process');
-const app = express();
-const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -43,13 +44,14 @@ app.post('/run/tools', (req, res) => {
   });
 });
 
-app.get('/', (req, res) => {
-  res.send('✅ APN Backend API is live and running.');
-});
-
-app.listen(PORT, () => console.log(`✅ Server started on port ${PORT}`));
 // Alias routes for Chrome Extension
 app.post('/trigger/blog', (req, res) => res.redirect(307, '/run/blogs'));
 app.post('/trigger/youtube', (req, res) => res.redirect(307, '/run/youtube'));
 app.post('/trigger/crypto', (req, res) => res.redirect(307, '/run/crypto'));
 app.post('/trigger/ai', (req, res) => res.redirect(307, '/run/tools'));
+
+app.get('/', (req, res) => {
+  res.send('✅ APN Backend API is live and running.');
+});
+
+app.listen(PORT, () => console.log(`✅ Server started on port ${PORT}`));
