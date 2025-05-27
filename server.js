@@ -48,3 +48,8 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`✅ Server started on port ${PORT}`));
+// Alias routes for Chrome Extension
+app.post('/trigger/blog', (req, res) => res.redirect(307, '/run/blogs'));
+app.post('/trigger/youtube', (req, res) => res.redirect(307, '/run/youtube'));
+app.post('/trigger/crypto', (req, res) => res.redirect(307, '/run/crypto'));
+app.post('/trigger/ai', (req, res) => res.redirect(307, '/run/tools'));
